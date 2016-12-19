@@ -1,0 +1,25 @@
+mysql:
+  environment:
+    - MYSQL_DATABASE=wordpress
+    - MYSQL_PASSWORD=wordpress
+    - MYSQL_ROOT_PASSWORD=wordpress
+    - MYSQL_USER=wordpress
+  image: 'mysql:latest'
+  mem_limit: 518m
+  volumes:
+    - /var/lib/mysql
+web:
+  environment:
+    - WORDPRESS_DB_NAME=wordpress
+    - WORDPRESS_DB_PASSWORD=wordpress
+    - WORDPRESS_DB_USER=wordpress
+  expose:
+    - '80'
+  image: 'wordpress:latest'
+  links:
+    - mysql
+  tags:
+    - my-super-node
+  volumes:
+    - /var/www/html
+  working_dir: /var/www/html
